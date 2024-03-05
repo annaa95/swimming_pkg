@@ -20,11 +20,10 @@ class SwimmingNode(Node):
     def subscriber_callback(self,msg_read ) :
         # read the joint state 
         self.get_logger().info("Reading:"+str(msg_read.position))
-        self.q_read_ = mss_read.position
+        self.q_read_ = msg_read.position
 
     def timer_callback(self):
         # cpg dynamics
-
         # foot trajectory
 
         # inverse kinematics
@@ -33,10 +32,12 @@ class SwimmingNode(Node):
                 "fl_j0","fl_j1", "fl_j2", 
                 "rl_j0", "rl_j1", "rl_j2", 
                 "rr_j0", "rr_j1", "rr_j2"]
-        
-        msg.t_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        msg.kp= [500.0]*12
+        msg.kd= [10.0]*12
+        msg.t_pos = [30.0]*12
+        msg.t_vel = [50.0]*12
+
         self.publisher_.publish(msg)
-        self.get_logger().info("Reading:"+str(msg_read.position))
 
 
 
