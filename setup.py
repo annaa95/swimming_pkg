@@ -1,11 +1,12 @@
 from setuptools import find_packages, setup
 
 package_name = 'swimming_pkg'
+submodule_path = package_name + '/swimming_mab_robot' 
 
 setup(
     name=package_name,
     version='0.0.0',
-    packages=find_packages(exclude=['test']),
+    packages=[package_name, submodule_path],
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
@@ -20,6 +21,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'swimmer = swimming_pkg.swimming_node:main',
         ],
     },
 )
