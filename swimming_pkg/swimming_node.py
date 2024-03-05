@@ -6,14 +6,14 @@ from hb40_commons.msg import JointCommand
 
 import sys, os
 
-from .hopf_network_gui import HopfNetwork
+from .swimming_mab_robot.env.hopf_network_gui import HopfNetwork
 
 class SwimmingNode(Node):
 
     def __init__(self):
         super().__init__('swimming_node')
         self.publisher_ = self.create_publisher(JointCommand, '/hb40/joint_command', 10)
-        self.subscriber_ = self.create_subscription(JointState, '/hb40/joint states', self.subscriber_callback, 10)
+        self.subscriber_ = self.create_subscription(JointState, '/hb40/joint_states', self.subscriber_callback, 10)
         timer_period = 0.005  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
     

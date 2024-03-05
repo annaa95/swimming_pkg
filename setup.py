@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 package_name = 'swimming_pkg'
-submodule_path = package_name + '/swimming_mab_robot' 
+submodule_path = package_name + '/swimming_mab_robot/env' 
 
 setup(
     name=package_name,
