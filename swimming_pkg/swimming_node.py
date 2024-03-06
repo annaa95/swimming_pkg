@@ -59,6 +59,11 @@ class SwimmingNode(Node):
         self.trj_ = self.get_dummy_trajectory()
         self.old_qdes_ = np.zeros(12)
         self.timer = self.create_timer(self.timer_period, self.timer_callback)
+        self.param_timer = self.create_timer(0.25, self.param_callback)
+        self.declare_parameter('kp', 5.0)
+        self.declare_parameter('kd', 0.1)
+        self.kp_ = self.get_parameter('kp').get_parameter_value().double_value
+        self.kd_ = self.get_parameter('kd').get_parameter_value().double_value
 
     def get_dummy_trajectory(self):
         # create a dummy trajectory in cartesian space
@@ -152,6 +157,11 @@ class SwimmingNode(Node):
         self.publisher_.publish(msg)
         self.publisher_debug_.publish(msg)
 
+    def param_callback(self):
+        # read the joint state
+        # self.get_logger().info("Reading:"+str(msg_read.position))
+        self.kp_ = self.get_parameter('kp').get_parameter_value().double_value
+        self.kd_ = self.get_parameter('kd').get_parameter_value().double_value
 
 def main(args=None):
     rclpy.init(args=args)
